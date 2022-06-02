@@ -44,7 +44,7 @@ const createLogger = () => {
     logger.add(
       new winston.transports.DailyRotateFile({
         level: 'error',
-        filename: 'log/error-%DATE%.log',
+        filename: 'logs/error-%DATE%.log',
         datePattern: 'YY-MM-DD',
         zippedArchive: true,
         maxSize: '1k',
@@ -54,7 +54,7 @@ const createLogger = () => {
 
     logger.add(
       new winston.transports.DailyRotateFile({
-        filename: 'log/application-%DATE%.log',
+        filename: 'logs/application-%DATE%.log',
         datePattern: 'YY-MM-DD',
         zippedArchive: true,
         maxSize: '1k',
