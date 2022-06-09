@@ -29,7 +29,7 @@ export class Document {
   @Column({ type: 'varchar' })
   ip: string;
 
-  @Column({ default: false, type: 'boolean' })
+  @Column({ default: false, type: 'boolean', select: false })
   deleted: boolean;
 
   @CreateDateColumn({ name: 'craeted_at', type: 'long' })

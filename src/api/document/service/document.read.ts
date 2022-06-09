@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Document } from '@src/common/database/mysql/entities/document.entity';
 import { NestError } from '@src/common/nest/exception/nest-error';
-import { logger } from '@src/common/util/logger/winston-logger';
 import { Repository } from 'typeorm';
 
 const LIST_DOC_LIMIT = 30;
@@ -16,7 +15,7 @@ export class DocumentReadService {
 
   public async singleDocument(documentIndex: number): Promise<Document> {
     const doc = await this.documentRepository.findOne({
-      where: { documentIndex: documentIndex },
+      where: { documentIndex: documentIndex, deleted: false },
     });
     if (doc == null) {
       throw new NestError(500, 'document not found');
@@ -26,6 +25,7 @@ export class DocumentReadService {
 
   public async listDocument(page: number): Promise<Document[]> {
     const docs = await this.documentRepository.find({
+      where: { deleted: false },
       skip: page,
       take: LIST_DOC_LIMIT,
     });
