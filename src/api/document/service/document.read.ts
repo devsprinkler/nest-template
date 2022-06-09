@@ -1,25 +1,38 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Document } from '@src/common/database/mysql/entities/document.entity';
+import { NestError } from '@src/common/nest/exception/nest-error';
 import { logger } from '@src/common/util/logger/winston-logger';
+import { Repository } from 'typeorm';
+
+const LIST_DOC_LIMIT = 30;
 
 @Injectable()
 export class DocumentReadService {
-  // constructor(private readonly documentRepository) {}
+  constructor(
+    @InjectRepository(Document)
+    private readonly documentRepository: Repository<Document>,
+  ) {}
 
-  public async singleDocument(documentIndex: number): Promise<any> {
-    // TODO: read document from database
-    logger.info(`document was read`);
-    return {
-      title: 'title',
-      body: 'body',
-      writerName: 'writer',
-      writerUid: '',
-      comments: [],
-    };
+  public async singleDocument(documentIndex: number): Promise<Document> {
+    const doc = await this.documentRepository.findOne({
+      where: { documentIndex: documentIndex },
+    });
+    if (doc == null) {
+      throw new NestError(500, 'document not found');
+    }
+    return doc;
   }
 
-  public async listDocument(page: number): Promise<any[]> {
-    // TODO: read list of document from database
-    logger.info('list of document was read');
-    return ['doc1', 'doc2', 'doc3'];
+  public async listDocument(page: number): Promise<Document[]> {
+    const docs = await this.documentRepository.find({
+      skip: page,
+      take: LIST_DOC_LIMIT,
+    });
+
+    if (docs.length == 0) {
+      throw new NestError(500, 'document not found');
+    }
+    return docs;
   }
 }
