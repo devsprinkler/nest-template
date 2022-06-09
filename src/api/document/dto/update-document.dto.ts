@@ -1,4 +1,4 @@
-export interface UpdateDocumentDto {
+export class UpdateDocumentDto {
   documentIndex: number;
   title: string;
   password: string;

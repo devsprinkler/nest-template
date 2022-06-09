@@ -1,4 +1,4 @@
-export interface CreateDocumentDto {
+export class CreateDocumentDto {
   title: string;
   password: string;
   writerName: string;

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UpdateDocumentDto } from '@src/api/document/dto/update-document.dto';
 import { logger } from '@src/common/util/logger/winston-logger';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 @Injectable()
 export class DocumentUpdateService {

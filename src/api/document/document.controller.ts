@@ -4,6 +4,11 @@ import { DocumentCreateService } from '@src/api/document/service/document.create
 import { DocumentReadService } from '@src/api/document/service/document.read';
 import { UpdateDocumentDto } from '@src/api/document/dto/update-document.dto';
 import { DocumentUpdateService } from '@src/api/document/service/document.update';
+import {
+  ListDocumentQuery,
+  ReadDocumentQuery,
+  ReadDocumentResponse,
+} from './dto/read-document.dto';
 
 @Controller('/document')
 export class DocumentController {
@@ -19,16 +24,16 @@ export class DocumentController {
   }
 
   @Get('/list')
-  public async listDocument(@Query() page: number) {
-    return this.documentReadService.listDocument(page);
+  public async listDocument(@Query() query: ListDocumentQuery) {
+    return this.documentReadService.listDocument(query.page);
   }
 
-  @Get(':documentIndex')
-  public async readDocument(@Param() documentIndex: number) {
-    return this.documentReadService.singleDocument(documentIndex);
+  @Get()
+  public async readDocument(@Query() query: ReadDocumentQuery) {
+    return this.documentReadService.singleDocument(query.novelIndex);
   }
 
-  @Put(':documentIndex')
+  @Put()
   public async updateDocument(@Body() updateDocumentDto: UpdateDocumentDto) {
     return this.documentUpdateService.updateDocument(updateDocumentDto);
   }
