@@ -1,5 +1,5 @@
 export class UpdateDocumentDto {
-  documentIndex: number;
+  documentId: number;
   title: string;
   password: string;
   body: string;

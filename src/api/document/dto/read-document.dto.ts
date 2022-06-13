@@ -5,7 +5,7 @@ export class ReadDocumentQuery {
     allowNaN: false,
     allowInfinity: false,
   })
-  novelIndex: number;
+  documentId: number;
 }
 
 export class ReadDocumentResponse {

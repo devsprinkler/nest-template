@@ -6,25 +6,28 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'document', orderBy: { documentIndex: 'ASC' } })
+@Entity({ name: 'document', orderBy: { documentId: 'ASC' } })
 export class Document {
-  @PrimaryGeneratedColumn('increment', { name: 'document_index' })
-  documentIndex: number;
+  @PrimaryGeneratedColumn('increment', {
+    name: 'document_id',
+    type: 'bigint',
+  })
+  documentId: number;
 
   @Column({ type: 'varchar' })
   title: string;
 
   @Column({ type: 'varchar' })
-  body: string;
+  content: string;
 
-  @Column({ name: 'wirter_name', type: 'varchar' })
+  @Column({ name: 'writer_name', type: 'varchar' })
   writerName: string;
 
-  @Column({ name: 'writer_uid', type: 'long' })
+  @Column({ name: 'writer_uid', type: 'bigint' })
   writerUid: number;
 
-  @Column({ type: 'varchar' })
-  comments: string; // TODO: set foreign key
+  @Column({ name: 'comment_ids', type: 'varchar' })
+  commentIds: string;
 
   @Column({ type: 'varchar' })
   ip: string;
@@ -32,9 +35,9 @@ export class Document {
   @Column({ default: false, type: 'boolean', select: false })
   deleted: boolean;
 
-  @CreateDateColumn({ name: 'craeted_at', type: 'long' })
+  @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: number;
 
-  @UpdateDateColumn({ name: 'updated_at', type: 'long' })
+  @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
   updatedAt: number;
 }

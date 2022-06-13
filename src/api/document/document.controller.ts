@@ -30,7 +30,7 @@ export class DocumentController {
 
   @Get()
   public async readDocument(@Query() query: ReadDocumentQuery) {
-    return this.documentReadService.singleDocument(query.novelIndex);
+    return this.documentReadService.singleDocument(query.documentId);
   }
 
   @Put()

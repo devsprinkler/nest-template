@@ -13,9 +13,9 @@ export class DocumentReadService {
     private readonly documentRepository: Repository<Document>,
   ) {}
 
-  public async singleDocument(documentIndex: number): Promise<Document> {
+  public async singleDocument(documentId: number): Promise<Document> {
     const doc = await this.documentRepository.findOne({
-      where: { documentIndex: documentIndex, deleted: false },
+      where: { documentId: documentId, deleted: false },
     });
     if (doc == null) {
       throw new NestError(500, 'document not found');
