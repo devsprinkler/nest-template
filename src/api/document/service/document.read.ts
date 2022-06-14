@@ -26,7 +26,7 @@ export class DocumentReadService {
   public async listDocument(page: number): Promise<Document[]> {
     const docs = await this.documentRepository.find({
       where: { deleted: false },
-      skip: page,
+      skip: (page - 1) * LIST_DOC_LIMIT,
       take: LIST_DOC_LIMIT,
     });
 

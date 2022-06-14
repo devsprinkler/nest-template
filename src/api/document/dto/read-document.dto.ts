@@ -1,10 +1,7 @@
-import { IsNumber } from 'class-validator';
+import { IsInt } from 'class-validator';
 
 export class ReadDocumentQuery {
-  @IsNumber({
-    allowNaN: false,
-    allowInfinity: false,
-  })
+  @IsInt({ message: 'documentId는 자연수입니다.' })
   documentId: number;
 }
 
@@ -13,10 +10,7 @@ export class ReadDocumentResponse {
 }
 
 export class ListDocumentQuery {
-  @IsNumber({
-    allowNaN: false,
-    allowInfinity: false,
-  })
+  @IsInt({ message: 'page는 자연수입니다.' })
   page: number;
 }
 
