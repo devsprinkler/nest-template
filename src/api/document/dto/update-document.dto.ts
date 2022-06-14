@@ -1,4 +1,4 @@
-import { IsNumber, IsString, ValidateIf } from 'class-validator';
+import { IsBoolean, IsNumber, IsString, ValidateIf } from 'class-validator';
 
 export class UpdateDocumentBody {
   @IsNumber({}, { message: 'documentId는 자연수입니다.' })
@@ -17,4 +17,7 @@ export class UpdateDocumentBody {
   @IsNumber({}, { message: 'writerUid는 자연수입니다.' })
   @ValidateIf((obj, val) => val != null)
   writerUid?: number;
+
+  @IsBoolean({ message: 'deleted는 T/F입니다.' })
+  deleted: boolean;
 }

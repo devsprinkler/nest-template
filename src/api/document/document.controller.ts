@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Patch,
   Post,
@@ -13,6 +14,7 @@ import { DocumentReadService } from '@src/api/document/service/document.read';
 import { UpdateDocumentBody } from '@src/api/document/dto/update-document.dto';
 import { DocumentUpdateService } from '@src/api/document/service/document.update';
 import { ListDocumentQuery, ReadDocumentQuery } from './dto/read-document.dto';
+import { DeleteDocumentQuery } from './dto/delete-document.dto';
 
 @Controller('/document')
 export class DocumentController {

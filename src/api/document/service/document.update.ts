@@ -34,6 +34,7 @@ export class DocumentUpdateService {
         writerUid: true,
         password: true,
         ip: true,
+        deleted: true,
       },
     });
 
@@ -53,6 +54,7 @@ export class DocumentUpdateService {
 
     doc.title = body.title;
     doc.content = body.content;
+    doc.deleted = body.deleted;
 
     await this.documentRepository.save(doc);
 
