@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Document } from '@src/common/database/mysql/entities/document.entity';
+import { Document } from '@src/api/document/model/document.entity';
 
 const mysqlHost = process.env.MYSQL_HOST || '127.0.0.1';
 const mysqlPort = process.env.MYSQL_PORT || '3306';

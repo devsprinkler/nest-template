@@ -1,10 +1,14 @@
 import {
+  BeforeInsert,
   Column,
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import crypto from 'crypto';
+
+export const PW_HASH_KEY = 'zCk8thC7FA'; // 환경변수로 빼거나 다른 데로 분리하거나?
 
 @Entity({ name: 'document', orderBy: { documentId: 'ASC' } })
 export class Document {
@@ -16,6 +20,9 @@ export class Document {
 
   @Column({ type: 'varchar' })
   title: string;
+
+  @Column({ type: 'varchar', select: false })
+  password: string;
 
   @Column({ type: 'varchar' })
   content: string;
@@ -36,8 +43,16 @@ export class Document {
   deleted: boolean;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
-  createdAt: number;
+  createdAt: string;
 
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
-  updatedAt: number;
+  updatedAt: string;
+
+  @BeforeInsert()
+  async hashPassword(): Promise<void> {
+    this.password = crypto
+      .createHmac('sha256', PW_HASH_KEY)
+      .update(this.password)
+      .digest('hex');
+  }
 }

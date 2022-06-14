@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Document } from '@src/common/database/mysql/entities/document.entity';
+import { Document } from '@src/api/document/model/document.entity';
 import { NestError } from '@src/common/nest/exception/nest-error';
 import { Repository } from 'typeorm';
 

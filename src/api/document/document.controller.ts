@@ -1,14 +1,18 @@
-import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
-import { CreateDocumentDto } from '@src/api/document/dto/create-document.dto';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Put,
+  Query,
+  Request,
+} from '@nestjs/common';
+import { CreateDocumentBody } from '@src/api/document/dto/create-document.dto';
 import { DocumentCreateService } from '@src/api/document/service/document.create';
 import { DocumentReadService } from '@src/api/document/service/document.read';
 import { UpdateDocumentDto } from '@src/api/document/dto/update-document.dto';
 import { DocumentUpdateService } from '@src/api/document/service/document.update';
-import {
-  ListDocumentQuery,
-  ReadDocumentQuery,
-  ReadDocumentResponse,
-} from './dto/read-document.dto';
+import { ListDocumentQuery, ReadDocumentQuery } from './dto/read-document.dto';
 
 @Controller('/document')
 export class DocumentController {
@@ -19,8 +23,11 @@ export class DocumentController {
   ) {}
 
   @Post()
-  public async createDocument(@Body() createDocumentDto: CreateDocumentDto) {
-    return this.documentCreateService.createDocument(createDocumentDto);
+  public async createDocument(
+    @Request() req,
+    @Body() body: CreateDocumentBody,
+  ) {
+    return this.documentCreateService.createDocument(body, req.ip);
   }
 
   @Get('/list')
