@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateDocumentBody } from '@src/api/document/dto/create-document.dto';
 import { logger } from '@src/common/util/logger/winston-logger';
-import dayjs from 'dayjs';
 import { Repository } from 'typeorm';
 import { Document } from '../model/document.entity';
 
@@ -26,7 +25,7 @@ export class DocumentCreateService {
       ip: ip,
     });
     await this.documentRepository.save(doc);
-    const createdDate = dayjs().unix();
+    const createdDate = new Date().valueOf();
     logger.info(`document was created at ${createdDate}`);
     return true;
   }

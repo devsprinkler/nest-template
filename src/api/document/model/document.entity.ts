@@ -1,5 +1,6 @@
 import {
   BeforeInsert,
+  BeforeUpdate,
   Column,
   CreateDateColumn,
   Entity,
@@ -50,6 +51,7 @@ export class Document {
 
   @BeforeInsert()
   async hashPassword(): Promise<void> {
+    if (!this.password) return;
     this.password = crypto
       .createHmac('sha256', PW_HASH_KEY)
       .update(this.password)

@@ -2,15 +2,15 @@ import {
   Body,
   Controller,
   Get,
+  Patch,
   Post,
-  Put,
   Query,
   Request,
 } from '@nestjs/common';
 import { CreateDocumentBody } from '@src/api/document/dto/create-document.dto';
 import { DocumentCreateService } from '@src/api/document/service/document.create';
 import { DocumentReadService } from '@src/api/document/service/document.read';
-import { UpdateDocumentDto } from '@src/api/document/dto/update-document.dto';
+import { UpdateDocumentBody } from '@src/api/document/dto/update-document.dto';
 import { DocumentUpdateService } from '@src/api/document/service/document.update';
 import { ListDocumentQuery, ReadDocumentQuery } from './dto/read-document.dto';
 
@@ -40,8 +40,8 @@ export class DocumentController {
     return this.documentReadService.singleDocument(query.documentId);
   }
 
-  @Put()
-  public async updateDocument(@Body() updateDocumentDto: UpdateDocumentDto) {
-    return this.documentUpdateService.updateDocument(updateDocumentDto);
+  @Patch()
+  public async updateDocument(@Body() body: UpdateDocumentBody) {
+    return this.documentUpdateService.updateDocument(body);
   }
 }

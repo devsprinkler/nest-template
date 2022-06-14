@@ -5,7 +5,8 @@ export class CreateDocumentBody {
   title: string;
 
   @IsString({ message: 'password는 문자열입니다.' })
-  password: string;
+  @ValidateIf((obj, val) => val != null)
+  password?: string;
 
   @IsString({ message: 'content는 문자열입니다.' })
   content: string;
