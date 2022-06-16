@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Document } from '@src/api/document/model/document.entity';
+import {
+  Document,
+  LIST_DOC_LIMIT,
+} from '@src/api/document/model/document.entity';
 import { NestError } from '@src/common/nest/exception/nest-error';
-import { Repository } from 'typeorm';
-
-const LIST_DOC_LIMIT = 30;
+import { Like, Repository } from 'typeorm';
 
 @Injectable()
 export class DocumentReadService {
@@ -30,9 +31,33 @@ export class DocumentReadService {
       take: LIST_DOC_LIMIT,
     });
 
-    if (docs.length == 0) {
-      throw new NestError(500, 'document not found');
-    }
     return docs;
+  }
+
+  public async searchDocument(
+    field: string,
+    word: string,
+    page: number,
+  ): Promise<Document[]> {
+    if (field === 'titleAndContent') {
+      const docs = await this.documentRepository.find({
+        where: [
+          { title: Like(`%${word}%`), deleted: false },
+          { content: Like(`%${word}%`), deleted: false },
+        ],
+        skip: (page - 1) * LIST_DOC_LIMIT,
+        take: LIST_DOC_LIMIT,
+      });
+      return docs;
+    } else if (field === 'writer') {
+      const docs = await this.documentRepository.find({
+        where: { writerName: Like(`%${word}%`), deleted: false },
+        skip: (page - 1) * LIST_DOC_LIMIT,
+        take: LIST_DOC_LIMIT,
+      });
+      return docs;
+    } else {
+      throw new NestError(500, 'invalid field');
+    }
   }
 }

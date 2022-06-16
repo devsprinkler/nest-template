@@ -20,8 +20,6 @@ export class DocumentUpdateService {
       .update(password)
       .digest('hex');
 
-    logger.info(`a: ${h}, b: ${hashed}`);
-
     return h === hashed;
   }
 
@@ -37,8 +35,6 @@ export class DocumentUpdateService {
         deleted: true,
       },
     });
-
-    logger.info(JSON.stringify(doc));
 
     if (doc == null) {
       throw new NestError(500, 'no such document');
@@ -59,7 +55,7 @@ export class DocumentUpdateService {
     await this.documentRepository.save(doc);
 
     const updatedDate = new Date().valueOf();
-    logger.info(`document was updated at ${updatedDate}`);
+    logger.info(`document ${doc.documentId} was updated at ${updatedDate}`);
     return true;
   }
 }

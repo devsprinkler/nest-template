@@ -1,4 +1,5 @@
 import {
+  BaseEntity,
   BeforeInsert,
   Column,
   CreateDateColumn,
@@ -9,9 +10,10 @@ import {
 import crypto from 'crypto';
 
 export const PW_HASH_KEY = 'zCk8thC7FA'; // 환경변수로 빼거나 다른 데로 분리하거나?
+export const LIST_DOC_LIMIT = 30;
 
-@Entity({ name: 'document', orderBy: { documentId: 'ASC' } })
-export class Document {
+@Entity({ name: 'document', orderBy: { documentId: 'DESC' } })
+export class Document extends BaseEntity {
   @PrimaryGeneratedColumn('increment', {
     name: 'document_id',
     type: 'bigint',

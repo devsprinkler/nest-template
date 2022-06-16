@@ -12,7 +12,11 @@ import { DocumentCreateService } from '@src/api/document/service/document.create
 import { DocumentReadService } from '@src/api/document/service/document.read';
 import { UpdateDocumentBody } from '@src/api/document/dto/update-document.dto';
 import { DocumentUpdateService } from '@src/api/document/service/document.update';
-import { ListDocumentQuery, ReadDocumentQuery } from './dto/read-document.dto';
+import {
+  ListDocumentQuery,
+  ReadDocumentQuery,
+  SearchDocumentQuery,
+} from './dto/read-document.dto';
 
 @Controller('/document')
 export class DocumentController {
@@ -24,10 +28,19 @@ export class DocumentController {
 
   @Post()
   public async createDocument(
-    @Request() req,
+    @Request() req, // For client's ip address
     @Body() body: CreateDocumentBody,
   ) {
     return this.documentCreateService.createDocument(body, req.ip);
+  }
+
+  @Get('/search')
+  public async searchDocument(@Query() query: SearchDocumentQuery) {
+    return this.documentReadService.searchDocument(
+      query.field,
+      query.word,
+      query.page,
+    );
   }
 
   @Get('/list')
