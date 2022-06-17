@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Document } from '@src/api/document/model/document.entity';
+import { User } from '@src/api/user/model/user.entity';
 
 const mysqlHost = process.env.MYSQL_HOST || '127.0.0.1';
 const mysqlPort = process.env.MYSQL_PORT || '3306';
@@ -16,7 +17,7 @@ const typeOrmModule = TypeOrmModule.forRootAsync({
     username: mysqlUser,
     password: mysqlPw,
     database: mysqlDb,
-    entities: [Document],
+    entities: [Document, User],
     retryAttempts: 3,
     retryDelay: 1000,
     keepConnectionAlive: true,
