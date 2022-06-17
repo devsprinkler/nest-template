@@ -13,7 +13,13 @@ export class UserReadService {
   async getUserInfo(uid: number): Promise<User> {
     const user = this.userRepository.findOne({
       where: { uid: uid, deleted: false },
-      select: { uid: true, email: true, nickname: true, createdAt: true },
+      select: {
+        uid: true,
+        email: true,
+        nickname: true,
+        createdAt: true,
+        updatedAt: true,
+      },
     });
     if (user == null) {
       throw new NestError(500, 'user notfound');
