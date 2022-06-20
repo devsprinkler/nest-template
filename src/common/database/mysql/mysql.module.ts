@@ -25,7 +25,7 @@ const typeOrmModule = TypeOrmModule.forRootAsync({
 });
 
 @Module({
-  imports: [typeOrmModule],
+  imports: [typeOrmModule, TypeOrmModule.forFeature([User, Document])],
   exports: [typeOrmModule],
 })
 export class MysqlModule {}
