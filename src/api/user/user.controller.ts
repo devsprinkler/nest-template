@@ -4,6 +4,7 @@ import { User } from '@src/api/user/model/user.entity';
 import { UserCreateService } from '@src/api/user/service/user.create';
 import { GetUserInfoQuery } from './dto/get-user-info.dto';
 import { LoginRequestBody } from './dto/login.dto';
+import { WithdrawUserRequestBody } from './dto/withdraw-user.dto';
 import { UserReadService } from './service/user.read';
 import { UserUpdateService } from './service/user.update';
 
@@ -32,5 +33,10 @@ export class UserController {
   @Put()
   async login(@Body() body: LoginRequestBody): Promise<User> {
     return this.userUpdateService.login(body.email, body.password);
+  }
+
+  @Put()
+  async withdrawUser(@Body() body: WithdrawUserRequestBody): Promise<boolean> {
+    return this.userUpdateService.withdrawUser(body.email, body.password);
   }
 }
