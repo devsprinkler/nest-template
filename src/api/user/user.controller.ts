@@ -35,7 +35,7 @@ export class UserController {
     return this.userUpdateService.login(body.email, body.password);
   }
 
-  @Put()
+  @Put('/withdraw')
   async withdrawUser(@Body() body: WithdrawUserRequestBody): Promise<boolean> {
     return this.userUpdateService.withdrawUser(body.email, body.password);
   }

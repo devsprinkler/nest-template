@@ -31,6 +31,9 @@ export class UserUpdateService {
         createdAt: true,
       },
     });
+    if (user == null) {
+      throw new NestError(500, 'user not found');
+    }
     if (!this.isPasswordCorrect(password, user.password)) {
       throw new NestError(500, 'password incorrect');
     }
