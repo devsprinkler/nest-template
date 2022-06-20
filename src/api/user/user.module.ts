@@ -4,7 +4,7 @@ import { User } from '@src/api/user/model/user.entity';
 import { UserCreateService } from '@src/api/user/service/user.create';
 import { UserReadService } from '@src/api/user/service/user.read';
 import { UserController } from '@src/api/user/user.controller';
-import { UserUpdateService } from './service/user.update';
+import { UserUpdateService } from '@src/api/user/service/user.update';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User])],

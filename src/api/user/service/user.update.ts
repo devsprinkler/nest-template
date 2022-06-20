@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import crypto from 'crypto';
 import { User, USER_HASH_KEY } from '@src/api/user/model/user.entity';
 import { NestError } from '@src/common/nest/exception/nest-error';
-import { createSession } from '../common/session';
+import { createSession } from '@src/api/user/common/session';
 
 @Injectable()
 export class UserUpdateService {

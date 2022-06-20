@@ -2,11 +2,11 @@ import { Body, Controller, Get, Post, Put, Query } from '@nestjs/common';
 import { CreateUserRequestBody } from '@src/api/user/dto/create-user.dto';
 import { User } from '@src/api/user/model/user.entity';
 import { UserCreateService } from '@src/api/user/service/user.create';
-import { GetUserInfoQuery } from './dto/get-user-info.dto';
-import { LoginRequestBody } from './dto/login.dto';
-import { WithdrawUserRequestBody } from './dto/withdraw-user.dto';
-import { UserReadService } from './service/user.read';
-import { UserUpdateService } from './service/user.update';
+import { GetUserInfoQuery } from '@src/api/user/dto/get-user-info.dto';
+import { LoginRequestBody } from '@src/api/user/dto/login.dto';
+import { WithdrawUserRequestBody } from '@src/api/user/dto/withdraw-user.dto';
+import { UserReadService } from '@src/api/user/service/user.read';
+import { UserUpdateService } from '@src/api/user/service/user.update';
 
 @Controller('/user')
 export class UserController {
