@@ -4,12 +4,13 @@ import { Repository } from 'typeorm';
 import crypto from 'crypto';
 import { User, USER_HASH_KEY } from '@src/api/user/model/user.entity';
 import { NestError } from '@src/common/nest/exception/nest-error';
-import { createSession } from '@src/api/user/common/session';
+import { UserSessionService } from '../common/session';
 
 @Injectable()
 export class UserUpdateService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
+    private readonly userSessionService: UserSessionService,
   ) {}
 
   private isPasswordCorrect(password: string, hashed: string): boolean {
@@ -28,6 +29,7 @@ export class UserUpdateService {
         uid: true,
         email: true,
         password: true,
+        session: true,
         createdAt: true,
       },
     });
@@ -37,7 +39,8 @@ export class UserUpdateService {
     if (!this.isPasswordCorrect(password, user.password)) {
       throw new NestError(500, 'password incorrect');
     }
-    user.session = createSession(email);
+    await this.userSessionService.withdrawSession(user.session);
+    user.session = await this.userSessionService.createSession(email);
     const saved = await this.userRepository.save(user);
     saved.password = undefined;
     return saved;
