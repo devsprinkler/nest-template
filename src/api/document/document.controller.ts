@@ -5,7 +5,7 @@ import {
   Patch,
   Post,
   Query,
-  Request,
+  Ip
 } from '@nestjs/common';
 import { CreateDocumentBody } from '@src/api/document/dto/create-document.dto';
 import { DocumentCreateService } from '@src/api/document/service/document.create';
@@ -28,10 +28,10 @@ export class DocumentController {
 
   @Post()
   public async createDocument(
-    @Request() req, // For client's ip address
+    @Ip() ip,
     @Body() body: CreateDocumentBody,
   ) {
-    return this.documentCreateService.createDocument(body, req.ip);
+    return this.documentCreateService.createDocument(body, ip);
   }
 
   @Get('/search')
