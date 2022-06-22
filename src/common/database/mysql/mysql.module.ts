@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Comment } from '@src/api/comment/model/comment.entity';
 import { Document } from '@src/api/document/model/document.entity';
 import { User } from '@src/api/user/model/user.entity';
 
@@ -17,7 +18,7 @@ const typeOrmModule = TypeOrmModule.forRootAsync({
     username: mysqlUser,
     password: mysqlPw,
     database: mysqlDb,
-    entities: [Document, User],
+    entities: [Document, User, Comment],
     retryAttempts: 3,
     retryDelay: 1000,
     keepConnectionAlive: true,
@@ -25,7 +26,7 @@ const typeOrmModule = TypeOrmModule.forRootAsync({
 });
 
 @Module({
-  imports: [typeOrmModule, TypeOrmModule.forFeature([User, Document])],
+  imports: [typeOrmModule, TypeOrmModule.forFeature([User, Document, Comment])],
   exports: [typeOrmModule],
 })
 export class MysqlModule {}

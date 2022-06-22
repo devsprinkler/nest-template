@@ -9,25 +9,21 @@ import {
 } from 'typeorm';
 import crypto from 'crypto';
 
-export const DOC_HASH_KEY = 'zCk8thC7FA'; // 환경변수로 빼거나 다른 데로 분리하거나?
-export const LIST_DOC_LIMIT = 30;
+export const COMMENT_HASH_KEY = '47eYIQAo0p';
 
-@Entity({ name: 'document', orderBy: { documentId: 'DESC' } })
-export class Document extends BaseEntity {
+@Entity({ name: 'comment', orderBy: { commentId: 'DESC' } })
+export class Comment extends BaseEntity {
   @PrimaryGeneratedColumn('increment', {
-    name: 'document_id',
+    name: 'comment_id',
     type: 'bigint',
   })
-  documentId: number;
+  commentId: number;
 
-  @Column({ type: 'varchar' })
-  title: string;
+  @Column({ name: 'document_id', type: 'bigint' })
+  documentId: number;
 
   @Column({ type: 'varchar', select: false })
   password: string;
-
-  @Column({ type: 'varchar' })
-  content: string;
 
   @Column({ name: 'writer_name', type: 'varchar' })
   writerName: string;
@@ -35,11 +31,11 @@ export class Document extends BaseEntity {
   @Column({ name: 'writer_uid', type: 'bigint' })
   writerUid: number;
 
-  @Column({ name: 'comment_ids', type: 'varchar' })
-  commentIds: string;
-
   @Column({ type: 'varchar' })
   ip: string;
+
+  @Column({ type: 'varchar' })
+  content: string;
 
   @Column({ default: false, type: 'boolean', select: false })
   deleted: boolean;
@@ -54,7 +50,7 @@ export class Document extends BaseEntity {
   async hashPassword(): Promise<void> {
     if (!this.password) return;
     this.password = crypto
-      .createHmac('sha256', DOC_HASH_KEY)
+      .createHmac('sha256', COMMENT_HASH_KEY)
       .update(this.password)
       .digest('hex');
   }

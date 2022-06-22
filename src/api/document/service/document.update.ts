@@ -4,7 +4,10 @@ import { UpdateDocumentBody } from '@src/api/document/dto/update-document.dto';
 import { NestError } from '@src/common/nest/exception/nest-error';
 import { logger } from '@src/common/util/logger/winston-logger';
 import { Repository } from 'typeorm';
-import { Document, PW_HASH_KEY } from '@src/api/document/model/document.entity';
+import {
+  Document,
+  DOC_HASH_KEY,
+} from '@src/api/document/model/document.entity';
 import crypto from 'crypto';
 
 @Injectable()
@@ -16,7 +19,7 @@ export class DocumentUpdateService {
 
   private isPasswordCorrect(password: string, hashed: string): boolean {
     const h = crypto
-      .createHmac('sha256', PW_HASH_KEY)
+      .createHmac('sha256', DOC_HASH_KEY)
       .update(password)
       .digest('hex');
 
