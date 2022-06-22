@@ -2,7 +2,7 @@
   "name": "nest-template",
   "version": "0.0.1",
   "description": "nestjs template project",
-  "author": "MincheolKwon",
+  "author": "MincheolKwon <dev.sprinkler@gmail.com>",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
