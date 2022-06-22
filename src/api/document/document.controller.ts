@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Patch,
-  Post,
-  Query,
-  Ip
-} from '@nestjs/common';
+import { Body, Controller, Get, Patch, Post, Query, Ip } from '@nestjs/common';
 import { CreateDocumentBody } from '@src/api/document/dto/create-document.dto';
 import { DocumentCreateService } from '@src/api/document/service/document.create';
 import { DocumentReadService } from '@src/api/document/service/document.read';
@@ -16,7 +8,7 @@ import {
   ListDocumentQuery,
   ReadDocumentQuery,
   SearchDocumentQuery,
-} from './dto/read-document.dto';
+} from '@src/api/document/dto/read-document.dto';
 
 @Controller('/document')
 export class DocumentController {
@@ -27,10 +19,7 @@ export class DocumentController {
   ) {}
 
   @Post()
-  public async createDocument(
-    @Ip() ip,
-    @Body() body: CreateDocumentBody,
-  ) {
+  public async createDocument(@Ip() ip, @Body() body: CreateDocumentBody) {
     return this.documentCreateService.createDocument(body, ip);
   }
 
