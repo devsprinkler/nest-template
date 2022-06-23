@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Post, Put, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Headers,
+  Post,
+  Put,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { CreateUserRequestBody } from '@src/api/user/dto/create-user.dto';
 import { User } from '@src/api/user/model/user.entity';
 import { UserCreateService } from '@src/api/user/service/user.create';
@@ -7,6 +16,7 @@ import { LoginRequestBody } from '@src/api/user/dto/login.dto';
 import { WithdrawUserRequestBody } from '@src/api/user/dto/withdraw-user.dto';
 import { UserReadService } from '@src/api/user/service/user.read';
 import { UserUpdateService } from '@src/api/user/service/user.update';
+import { UserGuard } from '@src/common/nest/guard/user.guard';
 
 @Controller('/user')
 export class UserController {
@@ -35,6 +45,7 @@ export class UserController {
     return this.userUpdateService.login(body.email, body.password);
   }
 
+  @UseGuards(UserGuard)
   @Put('/withdraw')
   async withdrawUser(@Body() body: WithdrawUserRequestBody): Promise<boolean> {
     return this.userUpdateService.withdrawUser(body.email, body.password);

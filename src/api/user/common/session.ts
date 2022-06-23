@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { RedisService } from '@src/common/database/redis/redis.service';
 import { NestError } from '@src/common/nest/exception/nest-error';
-import { logger } from '@src/common/util/logger/winston-logger';
 import crypto from 'crypto';
 
 @Injectable()
@@ -27,8 +26,19 @@ export class UserSessionService {
       await this.redisService.del(`session:${session}`);
       return true;
     } catch (e) {
-      logger.error(e);
       throw new NestError(500, 'redis delete failed');
+    }
+  }
+
+  async checkSession(session: string): Promise<string> {
+    try {
+      const sessionObj = await this.redisService.hgetall(`session:${session}`);
+      if (sessionObj == null) {
+        throw new NestError(500, 'session not found');
+      }
+      return sessionObj.email;
+    } catch (e) {
+      throw new NestError(500, e);
     }
   }
 }
