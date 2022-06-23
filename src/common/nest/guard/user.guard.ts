@@ -2,7 +2,6 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserSessionService } from '@src/api/user/common/session';
 import { User } from '@src/api/user/model/user.entity';
-import { logger } from '@src/common/util/logger/winston-logger';
 import { Repository } from 'typeorm';
 
 @Injectable()
