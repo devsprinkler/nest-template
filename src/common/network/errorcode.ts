@@ -1,0 +1,5 @@
+export enum ErrorCode {
+  DATABASE_FAIL = 1000,
+  ITEM_NOTFOUND = 1001,
+  INVALID_PARAMETER = 1002,
+}
